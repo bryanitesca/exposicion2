@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HappyBox-1.0</string>
+    <string name="Bienvenida">Bienvenindo, da clic en inicio o registrate</string>
+    <string name="inicio">Inicio</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Abrir menú lateral</string>
+    <string name="navigation_drawer_close">Cerrar menú lateral</string>
+    <string name="default_web_client_id">804166076306-br0q4adhphdkbegv75pqdi843hdothj3.apps.googleusercontent.com</string>
+</resources>

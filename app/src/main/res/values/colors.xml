@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="salmon">#FF9AA2</color>
+    <color name="melon">#FFB7B2</color>
+    <color name="naranja_palido">#FFDAC1</color>
+    <color name="blanco_sucio">#E2F0CB</color>
+    <color name="menta">#B5EAD7</color>
+    <color name="azul_palido">#C7CEEA</color>
+    <color name="red_happybox">#E42D28</color>
+</resources>

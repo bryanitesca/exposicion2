@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/casa"
+            android:title="Inicio"
+            android:padding="20dp"
+            android:textSize="20sp" />
+        <item
+            android:id="@+id/nav_regalos"
+            android:icon="@drawable/cajaregalo"
+            android:title="Regalos"
+            android:padding="20dp"
+            android:textSize="20sp" />
+        <item
+            android:id="@+id/nav_detalles"
+            android:icon="@drawable/lazo"
+            android:title="Detalles"
+            android:padding="20dp"
+            android:textSize="20sp" />
+        <item
+            android:id="@+id/nav_peluches"
+            android:icon="@drawable/teddy"
+            android:title="Peluches"
+            android:padding="20dp"
+            android:textSize="20sp" />
+        <item
+            android:id="@+id/nav_tazas"
+            android:icon="@drawable/taza"
+            android:title="Tazas"
+            android:padding="20dp"
+            android:textSize="20sp" />
+        <item
+            android:id="@+id/nav_globos"
+            android:icon="@drawable/globos"
+            android:title="Globos"
+            android:padding="20dp"
+            android:textSize="20sp" />
+    </group>
+
+    <!-- Grupo admin: ahora con apertura y cierre -->
+    <group
+        android:id="@+id/group_admin"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_add_product"
+            android:icon="@drawable/agregar"
+            android:title="Agregar Producto"
+            android:visible="false"
+            android:padding="20dp"
+            android:textSize="20sp" />
+
+        <!-- Editar y Eliminar solo visibles para Administrador -->
+        <item
+            android:id="@+id/nav_edit_product"
+            android:icon="@drawable/edit"
+            android:title="Editar Producto"
+            android:visible="false"
+            android:padding="20dp"
+            android:textSize="20sp" />
+
+        <item
+            android:id="@+id/nav_delete_product"
+            android:icon="@drawable/delete"
+            android:title="Eliminar Producto"
+            android:visible="false"
+            android:padding="20dp"
+            android:textSize="20sp" />
+
+    </group>
+
+    <!-- Separador -->
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@android:drawable/ic_menu_info_details"
+                android:title="Acerca de HappyBox"
+                android:padding="20dp"
+                android:textSize="20sp" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_menu_close_clear_cancel"
+                android:title="Cerrar Sesión"
+                android:padding="20dp"
+                android:textSize="20sp" />
+        </menu>
+    </item>
+</menu>

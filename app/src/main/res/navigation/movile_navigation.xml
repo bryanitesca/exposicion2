@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="mx.edu.itesca.happybox_10.HomeFragment">
+
+        <action android:id="@+id/action_nav_home_to_peluchesOffersFragment"
+            app:destination="@id/peluchesOffersFragment" />
+        <action android:id="@+id/action_nav_home_to_tazasOffersFragment"
+            app:destination="@id/tazasOffersFragment" />
+        <action android:id="@+id/action_nav_home_to_globosOffersFragment"
+            app:destination="@id/globosOffersFragment" />
+        <action android:id="@+id/action_nav_home_to_regalosOffersFragment"
+            app:destination="@id/regalosOffersFragment" />
+        <action android:id="@+id/action_nav_home_to_detallesOffersFragment"
+            app:destination="@id/detallesOffersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_peluches"
+        android:name="mx.edu.itesca.happybox_10.PeluchesFragment">
+        <action android:id="@+id/action_nav_peluches_to_peluchesOffersFragment"
+            app:destination="@id/peluchesOffersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_tazas"
+        android:name="mx.edu.itesca.happybox_10.TazasFragment">
+        <action android:id="@+id/action_nav_tazas_to_tazasOffersFragment"
+            app:destination="@id/tazasOffersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_globos"
+        android:name="mx.edu.itesca.happybox_10.GlobosFragment">
+        <action android:id="@+id/action_nav_globos_to_globosOffersFragment"
+            app:destination="@id/globosOffersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_regalos"
+        android:name="mx.edu.itesca.happybox_10.RegalosFragment">
+        <action android:id="@+id/action_nav_regalos_to_regalosOffersFragment"
+            app:destination="@id/regalosOffersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_detalles"
+        android:name="mx.edu.itesca.happybox_10.DetallesFragment">
+        <action android:id="@+id/action_nav_detalles_to_detallesOffersFragment"
+            app:destination="@id/detallesOffersFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/peluchesOffersFragment"
+        android:name="mx.edu.itesca.happybox_10.PeluchesOffersFragment">
+        <argument android:name="bannerPosition" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tazasOffersFragment"
+        android:name="mx.edu.itesca.happybox_10.TazasOffersFragment">
+        <argument android:name="bannerPosition" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/globosOffersFragment"
+        android:name="mx.edu.itesca.happybox_10.GlobosOffersFragment">
+        <argument android:name="bannerPosition" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/regalosOffersFragment"
+        android:name="mx.edu.itesca.happybox_10.RegalosOffersFragment">
+        <argument android:name="bannerPosition" app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detallesOffersFragment"
+        android:name="mx.edu.itesca.happybox_10.DetallesOffersFragment">
+        <argument android:name="bannerPosition" app:argType="integer" />
+    </fragment>
+
+</navigation>

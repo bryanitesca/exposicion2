@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Principal">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/melon">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/melon"
+            android:theme="@style/AppTheme.Toolbar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <!-- Barra de búsqueda centrada -->
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                app:queryHint="Buscar productos..."
+                app:iconifiedByDefault="false"
+                app:searchIcon="@android:drawable/ic_menu_search"
+                android:textColorHint="@android:color/black"
+                android:textColor="@android:color/black" />
+
+            <!-- Botón del carrito -->
+            <ImageButton
+                android:id="@+id/cartButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/carrito"
+                app:tint="@android:color/white"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Carrito"
+                android:layout_gravity="end"
+                android:layout_marginEnd="8dp" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
