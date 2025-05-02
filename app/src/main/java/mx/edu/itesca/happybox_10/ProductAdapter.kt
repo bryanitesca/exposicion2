@@ -9,20 +9,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class ProductAdapter(private val products: List<Product>) :
-    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(
+    private val products: List<Product>
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+    // Si se fija, anula el comportamiento por defecto
     private var onItemClickListener: ((Product) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (Product) -> Unit) {
         onItemClickListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.product_item, parent, false)
-        return ProductViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ProductViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+        )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(products[position])
@@ -31,15 +32,15 @@ class ProductAdapter(private val products: List<Product>) :
     override fun getItemCount(): Int = products.size
 
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView       = itemView.findViewById(R.id.productImage)
-        private val nameTextView: TextView     = itemView.findViewById(R.id.productName)
-        private val priceTextView: TextView    = itemView.findViewById(R.id.productPrice)
-        private val discountTextView: TextView = itemView.findViewById(R.id.productDiscount)
-        private val stockTextView: TextView    = itemView.findViewById(R.id.productStock)
-        private val descriptionTextView: TextView = itemView.findViewById(R.id.productDescription)
+        private val imageView         = itemView.findViewById<ImageView>(R.id.productImage)
+        private val nameTextView      = itemView.findViewById<TextView>(R.id.productName)
+        private val priceTextView     = itemView.findViewById<TextView>(R.id.productPrice)
+        private val discountTextView  = itemView.findViewById<TextView>(R.id.productDiscount)
+        private val stockTextView     = itemView.findViewById<TextView>(R.id.productStock)
+        private val descriptionTextView = itemView.findViewById<TextView>(R.id.productDescription)
 
         fun bind(product: Product) {
-            // Cargar imagen
+            // Imagen
             if (product.imagenes.isNotEmpty()) {
                 Glide.with(itemView.context)
                     .load(product.imagenes[0])
@@ -47,16 +48,14 @@ class ProductAdapter(private val products: List<Product>) :
                     .into(imageView)
             }
 
-            // Nombre
-            nameTextView.text = product.nombreProducto
-
-            // Precio
-            priceTextView.text = "$${"%.2f".format(product.precioProducto)}"
+            // Texto
+            nameTextView.text        = product.nombreProducto
+            priceTextView.text       = "$${"%.2f".format(product.precioProducto)}"
+            descriptionTextView.text = product.descripcionProducto
 
             // Descuento
-            if (product.descuentoProducto > 0.0) {
-                val pct = product.descuentoProducto.toInt()
-                discountTextView.text = "-${pct}%"
+            if (product.descuentoProducto > 0) {
+                discountTextView.text = "-${product.descuentoProducto.toInt()}%"
                 discountTextView.visibility = View.VISIBLE
             } else {
                 discountTextView.visibility = View.GONE
@@ -65,12 +64,19 @@ class ProductAdapter(private val products: List<Product>) :
             // Stock
             stockTextView.text = "Stock: ${product.stockProducto}"
 
-            // Descripción
-            descriptionTextView.text = product.descripcionProducto
-
-            // Click en el producto
+            // Click
             itemView.setOnClickListener {
-                onItemClickListener?.invoke(product)
+                onItemClickListener?.invoke(product) ?: run {
+                    // comportamiento por defecto: abrir detalle
+                    val intent = Intent(itemView.context, ProductDetailActivity::class.java).apply {
+                        putExtra("productId", product.id)
+                        putStringArrayListExtra("productImages", ArrayList(product.imagenes))
+                        putExtra("productName", product.nombreProducto)
+                        putExtra("productPrice", product.precioProducto)
+                        putExtra("productDescription", product.descripcionProducto)
+                    }
+                    itemView.context.startActivity(intent)
+                }
             }
         }
     }

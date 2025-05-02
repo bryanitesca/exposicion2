@@ -23,7 +23,7 @@
             <!-- Barra de búsqueda centrada -->
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
-                android:layout_width="0dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -37,8 +37,8 @@
             <!-- Botón del carrito -->
             <ImageButton
                 android:id="@+id/cartButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/carrito"
                 app:tint="@android:color/white"
                 android:background="?attr/selectableItemBackgroundBorderless"

@@ -1,75 +1,139 @@
 package mx.edu.itesca.happybox_10
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class EditProductActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
     private lateinit var spCategory: Spinner
-    private lateinit var etName: EditText
-    private lateinit var etPrice: EditText
-    private lateinit var etDiscount: EditText
-    private lateinit var etStock: EditText
-    private lateinit var etDescription: EditText
+    private lateinit var etSearchName: EditText
     private lateinit var btnSearch: Button
-    private lateinit var btnUpdate: Button
     private lateinit var rvProducts: RecyclerView
     private lateinit var productAdapter: ProductAdapter
-    private var productId: String? = null
     private val productList = mutableListOf<Product>()
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_product)
 
+        // Configurar la Toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        // Configurar DrawerLayout y NavigationView
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+
+        // Configurar ActionBarDrawerToggle
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        // Configurar visibilidad de opciones de administrador
+        val menu = navView.menu
+        val isAdmin = true // Cambia según tu lógica de autenticación
+        menu.findItem(R.id.nav_add_product).isVisible = isAdmin
+        menu.findItem(R.id.nav_edit_product).isVisible = isAdmin
+        menu.findItem(R.id.nav_delete_product).isVisible = isAdmin
+
+        // Manejar clics en el menú
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, Principal::class.java))
+                    finish()
+                }
+                R.id.nav_regalos -> {
+                    startActivity(Intent(this, Principal::class.java).putExtra("section", "regalos"))
+                    finish()
+                }
+                R.id.nav_detalles -> {
+                    startActivity(Intent(this, Principal::class.java).putExtra("section", "detalles"))
+                    finish()
+                }
+                R.id.nav_peluches -> {
+                    startActivity(Intent(this, Principal::class.java).putExtra("section", "peluches"))
+                    finish()
+                }
+                R.id.nav_tazas -> {
+                    startActivity(Intent(this, Principal::class.java).putExtra("section", "tazas"))
+                    finish()
+                }
+                R.id.nav_globos -> {
+                    startActivity(Intent(this, Principal::class.java).putExtra("section", "globos"))
+                    finish()
+                }
+                R.id.nav_add_product -> {
+                    startActivity(Intent(this, AddProductActivity::class.java))
+                    finish()
+                }
+                R.id.nav_edit_product -> {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.nav_delete_product -> {
+                    startActivity(Intent(this, DeleteProductActivity::class.java))
+                    finish()
+                }
+                R.id.nav_about -> {
+                    startActivity(Intent(this, Principal::class.java).putExtra("section", "about"))
+                    finish()
+                }
+                R.id.nav_logout -> {
+                    // Implementar lógica de cierre de sesión
+                    finish()
+                }
+            }
+            true
+        }
+
+        // Configurar vistas
         spCategory = findViewById(R.id.spCategory)
-        etName = findViewById(R.id.etName)
-        etPrice = findViewById(R.id.etPrice)
-        etDiscount = findViewById(R.id.etDiscount)
-        etStock = findViewById(R.id.etStock)
-        etDescription = findViewById(R.id.etDescription)
+        etSearchName = findViewById(R.id.etName)
         btnSearch = findViewById(R.id.btnSearch)
-        btnUpdate = findViewById(R.id.btnUpdate)
         rvProducts = findViewById(R.id.rvProducts)
 
-        // Configurar Spinner
         spCategory.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
             listOf("Detalles", "Regalos", "Tazas", "Peluches", "Globos")
         )
 
-        // Configurar RecyclerView
         productAdapter = ProductAdapter(productList).apply {
-            // Override onClick to populate fields
             setOnItemClickListener { product ->
-                productId = product.id
-                etName.setText(product.nombreProducto)
-                etPrice.setText(product.precioProducto.toString())
-                etDiscount.setText(product.descuentoProducto.toString())
-                etStock.setText(product.stockProducto.toString())
-                etDescription.setText(product.descripcionProducto)
-                Toast.makeText(this@EditProductActivity, "Producto seleccionado", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@EditProductActivity, AddProductActivity::class.java).apply {
+                    putExtra("mode", "edit")
+                    putExtra("productId", product.id)
+                }
+                startActivity(intent)
             }
         }
+
         rvProducts.layoutManager = LinearLayoutManager(this)
         rvProducts.adapter = productAdapter
 
-        btnSearch.setOnClickListener { searchProduct() }
-        btnUpdate.setOnClickListener { updateProduct() }
+        btnSearch.setOnClickListener { searchProducts() }
     }
 
-    private fun searchProduct() {
+    private fun searchProducts() {
         val tipo = spCategory.selectedItem as String
-        val nombre = etName.text.toString().trim()
-
+        val nombre = etSearchName.text.toString().trim()
         if (nombre.isEmpty()) {
-            Toast.makeText(this, "Nombre requerido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Introduce un nombre para buscar", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -80,17 +144,14 @@ class EditProductActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { snap ->
                 productList.clear()
-                if (snap.isEmpty) {
-                    Toast.makeText(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
-                } else {
-                    snap.documents.forEach { doc ->
-                        val product = doc.toObject(Product::class.java)?.copy(id = doc.id)
-                        if (product != null) {
-                            productList.add(product)
-                        }
+                snap.documents.forEach { doc ->
+                    doc.toObject(Product::class.java)?.copy(id = doc.id)?.let {
+                        productList.add(it)
                     }
-                    productAdapter.notifyDataSetChanged()
-                    Toast.makeText(this, "${productList.size} productos encontrados", Toast.LENGTH_SHORT).show()
+                }
+                productAdapter.notifyDataSetChanged()
+                if (productList.isEmpty()) {
+                    Toast.makeText(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener {
@@ -98,21 +159,11 @@ class EditProductActivity : AppCompatActivity() {
             }
     }
 
-    private fun updateProduct() {
-        val id = productId ?: return Toast.makeText(this, "Primero selecciona un producto", Toast.LENGTH_SHORT).show()
-        val updates = mapOf(
-            "precioProducto" to (etPrice.text.toString().toDoubleOrNull() ?: 0.0),
-            "descuentoProducto" to (etDiscount.text.toString().toDoubleOrNull() ?: 0.0),
-            "stockProducto" to (etStock.text.toString().toIntOrNull() ?: 0),
-            "descripcionProducto" to etDescription.text.toString().trim()
-        )
-        db.collection("Productos").document(id)
-            .update(updates)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Producto actualizado", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Error al actualizar", Toast.LENGTH_SHORT).show()
-            }
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }
