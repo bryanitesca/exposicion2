@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
+import es.dmoral.toasty.Toasty
 
 class EditProductActivity : AppCompatActivity() {
 
@@ -133,7 +134,7 @@ class EditProductActivity : AppCompatActivity() {
         val tipo = spCategory.selectedItem as String
         val nombre = etSearchName.text.toString().trim()
         if (nombre.isEmpty()) {
-            Toast.makeText(this, "Introduce un nombre para buscar", Toast.LENGTH_SHORT).show()
+            Toasty.info(this, "Introduce un nombre para buscar", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -151,11 +152,11 @@ class EditProductActivity : AppCompatActivity() {
                 }
                 productAdapter.notifyDataSetChanged()
                 if (productList.isEmpty()) {
-                    Toast.makeText(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
+                    Toasty.info(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error al buscar productos", Toast.LENGTH_SHORT).show()
+                Toasty.error(this, "Error al buscar productos", Toast.LENGTH_SHORT).show()
             }
     }
 

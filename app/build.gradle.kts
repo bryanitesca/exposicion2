@@ -60,6 +60,10 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.functions.ktx)
+    implementation(libs.firebase.appcheck.debug)
+    implementation(libs.billing.ktx)
+    implementation(libs.androidx.swiperefreshlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,4 +90,19 @@ dependencies {
 
     implementation("androidx.compose.ui:ui-android:1.7.8") //LocalContext
     implementation("androidx.activity:activity-compose:1.9.3") //setContext
+
+    //toasty
+    implementation("com.github.GrenderG:Toasty:1.5.2")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
+    //Stripe SDK
+    implementation ("com.stripe:stripe-android:21.12.0")
+
+    // PlayIntegrity de pago
+    implementation("com.google.firebase:firebase-appcheck-playintegrity")
+    // PlayIntegrity de desarrollo (gratuito)
+    implementation("com.google.firebase:firebase-appcheck-debug")
+
+
+
 }

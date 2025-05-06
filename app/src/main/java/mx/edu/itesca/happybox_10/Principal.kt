@@ -7,6 +7,7 @@ import android.view.Menu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,6 +16,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
@@ -32,9 +36,9 @@ class Principal : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityPrincipalBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.appBarMain.toolbar)
         drawerLayout = binding.drawerLayout
         auth = FirebaseAuth.getInstance()
@@ -103,20 +107,35 @@ class Principal : AppCompatActivity() {
             }
 
         // Logout & other
-        binding.navView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_purchases -> {
+                    // Navegación manual a la Activity
+                    startActivity(Intent(this, PurchasesActivity::class.java))
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_about -> {
+                    startActivity(Intent(this, AboutActivity::class.java))
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
                 R.id.nav_logout -> {
+                    // Lógica de logout
                     auth.signOut()
-                    sharedPreferences.edit().clear().apply()
-                    startActivity(Intent(this, LoginActivity::class.java)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
+                    startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                     true
                 }
                 else -> {
-                    NavigationUI.onNavDestinationSelected(item, navController)
-                    drawerLayout.closeDrawers()
-                    true
+                    // Para los fragments usa Navigation Component
+                    try {
+                        NavigationUI.onNavDestinationSelected(menuItem, navController)
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        true
+                    } catch (e: IllegalArgumentException) {
+                        false
+                    }
                 }
             }
         }
@@ -135,6 +154,7 @@ class Principal : AppCompatActivity() {
             v.setPadding(sys.left, sys.top, sys.right, sys.bottom)
             insets
         }
+
     }
 
     override fun onSupportNavigateUp() =

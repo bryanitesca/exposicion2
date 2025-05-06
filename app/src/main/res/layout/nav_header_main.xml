@@ -32,11 +32,11 @@
     <TextView
         android:id="@+id/userDetailsTextView"
         android:layout_width="match_parent"
-        android:layout_height="29dp"
-        android:text="Detalles de usuario"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackground" />
+        android:text="Detalles de usuario"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 </LinearLayout>

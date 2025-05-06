@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import es.dmoral.toasty.Toasty
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -50,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Por favor, ingresa email y contraseña", Toast.LENGTH_SHORT).show()
+                Toasty.info(this, "Por favor, ingresa email y contraseña", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -59,10 +60,11 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
+                        Toasty.success(this, "¡Inicio de sesión exitoso!", Toast.LENGTH_SHORT, true).show()
                         updateUI(user)
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        Toasty.error(this, "Correo o contraseña incorrectos. Verifica tus datos.", Toast.LENGTH_SHORT, true).show()
                     }
                 }
         }
@@ -76,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvForgotPassword.setOnClickListener {
-            Toast.makeText(this, "Funcionalidad no implementada", Toast.LENGTH_SHORT).show()
+            Toasty.info(this, "Funcionalidad no implementada", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -112,11 +114,11 @@ class LoginActivity : AppCompatActivity() {
                     firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
                 } else {
                     Log.e(TAG, "Credencial inesperada: ${credential.type}")
-                    Toast.makeText(this@LoginActivity, "Credencial no válida", Toast.LENGTH_SHORT).show()
+                    Toasty.error(this@LoginActivity, "Credencial no válida", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error al obtener credenciales: ${e.message}", e)
-                Toast.makeText(
+                Toasty.error(
                     this@LoginActivity,
                     "Error al iniciar con Google: ${e.message}",
                     Toast.LENGTH_LONG
@@ -135,7 +137,7 @@ class LoginActivity : AppCompatActivity() {
                     updateUI(user)
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(this, "Error verifica datos", Toast.LENGTH_SHORT).show()
                 }
             }
     }

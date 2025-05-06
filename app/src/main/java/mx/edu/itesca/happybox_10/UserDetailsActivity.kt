@@ -87,7 +87,7 @@ class UserDetailsActivity : AppCompatActivity() {
             }.addOnFailureListener { e ->
                 Toast.makeText(this, "Error al guardar: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-        }
+         }
     }
 
     private fun setupNavMenu() {

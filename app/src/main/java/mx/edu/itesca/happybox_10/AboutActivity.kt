@@ -63,7 +63,7 @@ class AboutActivity : AppCompatActivity() {
                 R.id.nav_peluches    -> navigateToFragment("peluches")
                 R.id.nav_tazas       -> navigateToFragment("tazas")
                 R.id.nav_globos      -> navigateToFragment("globos")
-                R.id.nav_about       -> { drawerLayout.closeDrawers(); true }
+                R.id.nav_about       -> navigateToFragment("about")//{ drawerLayout.closeDrawers(); true }
                 R.id.nav_add_product -> {
                     startActivity(Intent(this, AddProductActivity::class.java))
                     drawerLayout.closeDrawers()

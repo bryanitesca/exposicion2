@@ -6,4 +6,5 @@
     <string name="navigation_drawer_open">Abrir menú lateral</string>
     <string name="navigation_drawer_close">Cerrar menú lateral</string>
     <string name="default_web_client_id">804166076306-br0q4adhphdkbegv75pqdi843hdothj3.apps.googleusercontent.com</string>
+    <string name="stripe_publishable_key">pk_test_51QobqjPV9HXs7AHQn8PWHOjcLKmmooGsrCp3nkYgMBnBrViK8jIghs2xYeKgREB0rJHb9Ujl64E9OXbGpG4gT0Sm00GjTJrC27</string>
 </resources>

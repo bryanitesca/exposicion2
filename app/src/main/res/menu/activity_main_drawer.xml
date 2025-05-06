@@ -40,6 +40,12 @@
             android:title="Globos"
             android:padding="20dp"
             android:textSize="20sp" />
+        <item
+            android:id="@+id/nav_purchases"
+            android:icon="@drawable/bolsa"
+            android:title="Mis Compras"
+            android:padding="20dp"
+            android:textSize="20sp" />
 
     </group>
 

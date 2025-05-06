@@ -6,7 +6,8 @@ data class CartItem(
     val name: String = "",
     val price: Double = 0.0,
     val quantity: Int = 1,
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+    var selected: Boolean = false
 ) {
     // Constructor sin parámetros necesario para Firestore
     constructor() : this("", "", "", 0.0, 1, "")

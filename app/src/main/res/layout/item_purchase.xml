@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <!-- Ícono representativo de la compra -->
+        <ImageView
+            android:id="@+id/ivPurchaseIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/bolsa"
+            android:contentDescription="Ícono de compra"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Contenido de la compra -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvPurchaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05 May 2025 - 13:22"
+                android:textSize="14sp"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/tvPurchaseTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$199.99"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/tvItemsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 artículos"
+                android:textSize="14sp"
+                android:textColor="#666666" />
+        </LinearLayout>
+
+        <!-- Estado de la compra -->
+        <TextView
+            android:id="@+id/tvPurchaseStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completada"
+            android:textSize="12sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/bg_status_rounded"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Flechita de navegación -->
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/flechaderecha"
+            android:contentDescription="Ver detalles" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

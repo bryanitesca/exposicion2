@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
+import es.dmoral.toasty.Toasty
 
 class DeleteProductActivity : AppCompatActivity() {
 
@@ -123,11 +124,11 @@ class DeleteProductActivity : AppCompatActivity() {
                         db.collection("Productos").document(product.id)
                             .delete()
                             .addOnSuccessListener {
-                                Toast.makeText(this@DeleteProductActivity, "Producto eliminado", Toast.LENGTH_SHORT).show()
+                                Toasty.success(this@DeleteProductActivity, "Producto eliminado", Toast.LENGTH_SHORT).show()
                                 searchProducts()
                             }
                             .addOnFailureListener {
-                                Toast.makeText(this@DeleteProductActivity, "Error al eliminar", Toast.LENGTH_SHORT).show()
+                                Toasty.error(this@DeleteProductActivity, "Error al eliminar", Toast.LENGTH_SHORT).show()
                             }
                     }
                     .setNegativeButton("No", null)
@@ -145,7 +146,7 @@ class DeleteProductActivity : AppCompatActivity() {
         val tipo = spCategory.selectedItem as String
         val nombre = etSearchName.text.toString().trim()
         if (nombre.isEmpty()) {
-            Toast.makeText(this, "Introduce un nombre para buscar", Toast.LENGTH_SHORT).show()
+            Toasty.info(this, "Introduce un nombre para buscar", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -163,11 +164,11 @@ class DeleteProductActivity : AppCompatActivity() {
                 }
                 productAdapter.notifyDataSetChanged()
                 if (productList.isEmpty()) {
-                    Toast.makeText(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
+                    Toasty.info(this, "No se encontraron productos", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error al buscar productos", Toast.LENGTH_SHORT).show()
+                Toasty.error(this, "Error al buscar productos", Toast.LENGTH_SHORT).show()
             }
     }
 

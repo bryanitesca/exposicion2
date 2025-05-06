@@ -10,12 +10,15 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/melon">
+        android:theme="@style/Theme.Material3.DayNight"
+        android:background="@color/melon"
+        android:elevation="4dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="72dp"
+            android:paddingHorizontal="12dp"
             android:background="@color/melon"
             android:theme="@style/AppTheme.Toolbar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">

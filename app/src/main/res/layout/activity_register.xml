@@ -21,6 +21,7 @@
 
         <!-- Campo para nombre -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -31,11 +32,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo para correo -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -46,11 +49,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Correo"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo para contraseña -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -61,11 +66,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contraseña"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Campo para confirmar contraseña -->
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmPasswordInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -76,7 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirmar Contraseña"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Botón de "Registrarse" -->

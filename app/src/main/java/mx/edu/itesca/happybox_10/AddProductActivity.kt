@@ -16,6 +16,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
+import es.dmoral.toasty.Toasty
 
 class AddProductActivity : AppCompatActivity() {
 
@@ -239,7 +240,8 @@ class AddProductActivity : AppCompatActivity() {
         val category = spCategory.selectedItem as String
 
         if (name.isEmpty() || (newImageUris.isEmpty() && existingImageUrls.isEmpty())) {
-            Toast.makeText(this, "Nombre e imágenes requeridas", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Nombre e imágenes requeridas", Toast.LENGTH_SHORT).show()
+            Toasty.error(this, "Nombre e imagenes requeridas", Toast.LENGTH_LONG, true).show()
             return
         }
 
@@ -263,15 +265,18 @@ class AddProductActivity : AppCompatActivity() {
                 )
                 db.collection("Productos").add(product)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Producto agregado", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, "Producto agregado", Toast.LENGTH_SHORT).show()
+                        Toasty.success(this, "¡Producto agregado!", Toast.LENGTH_SHORT, true).show()
                         finish()
                     }
                     .addOnFailureListener { e ->
-                        Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                        //Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                        Toasty.error(this, "\"Error: ${e.message}\"", Toast.LENGTH_LONG, true).show()
                     }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al subir imágenes: ${e.message}", Toast.LENGTH_LONG).show()
+               // Toast.makeText(this, "Error al subir imágenes: ${e.message}", Toast.LENGTH_LONG).show()
+                Toasty.error(this, "Error al subir imágenes: ${e.message}", Toast.LENGTH_LONG, true).show()
             }
     }
 
@@ -285,7 +290,8 @@ class AddProductActivity : AppCompatActivity() {
         val category = spCategory.selectedItem as String
 
         if (name.isEmpty() || (newImageUris.isEmpty() && existingImageUrls.isEmpty())) {
-            Toast.makeText(this, "Nombre e imágenes requeridas", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Nombre e imágenes requeridas", Toast.LENGTH_SHORT).show()
+            Toasty.error(this, "Nombre e imagenes requeridas", Toast.LENGTH_LONG, true).show()
             return
         }
 
@@ -310,15 +316,15 @@ class AddProductActivity : AppCompatActivity() {
                 db.collection("Productos").document(id)
                     .update(updates)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Producto actualizado", Toast.LENGTH_SHORT).show()
+                        Toasty.info(this, "Producto actualizado", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "Error al actualizar", Toast.LENGTH_SHORT).show()
+                        Toasty.error(this, "Error al actualizar", Toast.LENGTH_SHORT).show()
                     }
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error al subir imágenes: ${it.message}", Toast.LENGTH_LONG).show()
+                Toasty.error(this, "Error al subir imágenes: ${it.message}", Toast.LENGTH_LONG).show()
             }
     }
 
